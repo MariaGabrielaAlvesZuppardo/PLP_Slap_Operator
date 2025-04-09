@@ -1,3 +1,40 @@
+# Projeto – Programação Funcional 03 com Operador Splat (`*`)
+
+Este repositório contém a implementação do **operador splat (`*`)**, inspirado na linguagem **Ruby**, na **Linguagem Funcional 3**, desenvolvida no contexto da disciplina _IN1007 – Paradigmas de Linguagens de Programação_, ministrada pelo **Prof. Dr. Augusto Sampaio**, no Programa de Pós-Graduação em Ciência da Computação (PPGCC) do **Centro de Informática da Universidade Federal de Pernambuco (CIn-UFPE)**.
+
+---
+
+## 👥 Integrantes do Projeto
+
+- Letícia Rose de Santana Lopes — [lrsl@cin.ufpe.br](mailto:lrsl@cin.ufpe.br)  
+- Maria Gabriela Alves Zuppardo — [mgaz@cin.ufpe.br](mailto:mgaz@cin.ufpe.br)
+
+---
+
+## 📌 Descrição do Projeto
+
+### 🔹 O que é o Operador Splat (`*`)?
+
+O **operador splat**, proveniente da linguagem Ruby, é utilizado para **empacotar** ou **desempacotar** coleções de elementos (como arrays) de maneira flexível:
+
+- Em **chamadas de função**, permite **expandir listas em múltiplos argumentos**.
+- Em **definições de função**, permite **capturar argumentos variáveis** como uma lista.
+- Também é útil para **desestruturação de arrays** e **manipulação de listas** em geral.
+
+> Inspirado por [Thoughtbot - Ruby Splat Operator](https://thoughtbot.com/blog/ruby-splat-operator).
+
+---
+
+## 🎯 Objetivo
+
+Estender a **Linguagem Funcional 3** (abordada anteriormente na disciplina), adicionando:
+- **Integração do operador splat (`*`)**, permitindo desempacotamento de listas em chamadas de função
+
+Essa extensão visa enriquecer o paradigma funcional com **maior expressividade**, promovendo **argumentos dinâmicos e manipulação flexível de listas**.
+
+
+
+
 # Paradigmas de Linguagens de Programação
 
 Repositório do projeto da disciplina Paradigmas de Linguagens de Programação ([in1007](https://www.cin.ufpe.br/~in1007/)) da pós-graduação em Ciência da Computação da UFPE, ministrada pelo Prof.Dr. Augusto Sampaio.
