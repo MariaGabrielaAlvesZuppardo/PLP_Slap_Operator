@@ -79,4 +79,9 @@ public class TipoLista implements Tipo {
 		return "[" + subTipo.getNome() + "]";
 	}
 
+    public Tipo getTipoElemento() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getTipoElemento'");
+    }
+
 }

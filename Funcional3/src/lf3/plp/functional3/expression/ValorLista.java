@@ -1,6 +1,7 @@
 package lf3.plp.functional3.expression;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import lf3.plp.expressions1.util.Tipo;
@@ -299,4 +300,9 @@ public class ValorLista extends ValorConcreto<List<Expressao>> {
 
 		return valor().equals(other.valor());
 	}
+
+    public Collection<? extends Valor> getValores() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getValores'");
+    }
 }

@@ -20,192 +20,172 @@ import lf3.plp.expressions2.memory.VariavelNaoDeclaradaException;
 import lf3.plp.functional1.util.DefFuncao;
 import lf3.plp.functional1.util.TipoFuncao;
 import lf3.plp.functional1.util.TipoPolimorfico;
+import lf3.plp.functional3.expression.ValorLista;
 
 public class Aplicacao implements Expressao {
 
-	private Expressao func;
-	private List<? extends Expressao> argsExpressao;
+    private Expressao func;
+    private List<? extends Expressao> argsExpressao;
 
-	public Aplicacao(Expressao f, Expressao... expressoes) {
-		this(f, asList(expressoes));
-	}
+    public Aplicacao(Expressao f, Expressao... expressoes) {
+        this(f, asList(expressoes));
+    }
 
-	public Aplicacao(Expressao f, List<? extends Expressao> expressoes) {
-		func = f;
-		argsExpressao = expressoes;
-	}
+    public Aplicacao(Expressao f, List<? extends Expressao> expressoes) {
+        func = f;
+        argsExpressao = expressoes;
+    }
 
-	public Valor avaliar(AmbienteExecucao ambiente)
-			throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
+    public Valor avaliar(AmbienteExecucao ambiente)
+            throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
 
-		ValorFuncao funcao = (ValorFuncao) func.avaliar(ambiente);
+        ValorFuncao funcao = (ValorFuncao) func.avaliar(ambiente);
 
-		Map<Id, Valor> mapIdValor = resolveParametersBindings(ambiente, funcao);
-		ambiente.incrementa();		
-		includeValueBindings(ambiente, mapIdValor);
+        Map<Id, Valor> mapIdValor = resolveParametersBindings(ambiente, funcao);
+        ambiente.incrementa();
+        includeValueBindings(ambiente, mapIdValor);
 
-		if(funcao.getId() != null){
-			ambiente.map(funcao.getId(), funcao.clone());
-		}
-		Expressao exp = funcao.getExp().clone();
+        if (funcao.getId() != null) {
+            ambiente.map(funcao.getId(), funcao.clone());
+        }
+        Expressao exp = funcao.getExp().clone();
 
-		exp.reduzir(ambiente);
-		
-		Valor vresult = exp.avaliar(ambiente);
-		
-		ambiente.restaura();
-		
-		return vresult;
-	}
+        exp.reduzir(ambiente);
 
-	/**
-	 * Realiza a verificacao de tipos desta expressao.
-	 * 
-	 * @param amb
-	 *            o ambiente de compila��o.
-	 * @return <code>true</code> se os tipos da expressao sao validos;
-	 *         <code>false</code> caso contrario.
-	 * @exception VariavelNaoDeclaradaException
-	 *                se existir um identificador nao declarado no ambiente.
-	 * @exception VariavelNaoDeclaradaException
-	 *                se existir um identificador declarado mais de uma vez no
-	 *                mesmo bloco do ambiente.
-	 */
-	public boolean checaTipo(AmbienteCompilacao ambiente)
-			throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
-		Tipo tipo = getFuncType(ambiente);
+        Valor vresult = exp.avaliar(ambiente);
 
-		boolean result;
+        ambiente.restaura();
 
-		TipoFuncao tipoFuncao = (TipoFuncao) tipo;
-		result = tipoFuncao.checaTipo(ambiente, argsExpressao);
+        return vresult;
+    }
 
-		return result;
-	}
+    public boolean checaTipo(AmbienteCompilacao ambiente)
+            throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
+        Tipo tipo = getFuncType(ambiente);
 
-	private Tipo getFuncType(AmbienteCompilacao ambiente) {
-		Tipo tipoFuncao = null;
-		if (func instanceof Id) {
-			tipoFuncao = ambiente.get((Id) func);
-		} else if (func instanceof ValorFuncao) {
-			tipoFuncao = ((ValorFuncao) func).getTipo(ambiente);
-		}
+        boolean result;
 
-		if (tipoFuncao == null || tipoFuncao instanceof TipoPolimorfico) {
-			ArrayList<Tipo> params = new ArrayList<Tipo>();
-			for (Expressao valorReal : argsExpressao) {
-				params.add(valorReal.getTipo(ambiente));
-			}
-			tipoFuncao = new TipoFuncao(params, new TipoPolimorfico());
-		}
-		return tipoFuncao;
-	}
+        TipoFuncao tipoFuncao = (TipoFuncao) tipo;
+        result = tipoFuncao.checaTipo(ambiente, argsExpressao);
 
-	/**
-	 * Returns the args.
-	 * 
-	 * @return ListaExpressao
-	 */
-	public List<? extends Expressao> getArgsExpressao() {
-		return argsExpressao;
-	}
+        return result;
+    }
 
-	/**
-	 * Returns the func.
-	 * 
-	 * @return Id
-	 */
-	public Expressao getFunc() {
-		return func;
-	}
+    private Tipo getFuncType(AmbienteCompilacao ambiente) {
+        Tipo tipoFuncao = null;
+        if (func instanceof Id) {
+            tipoFuncao = ambiente.get((Id) func);
+        } else if (func instanceof ValorFuncao) {
+            tipoFuncao = ((ValorFuncao) func).getTipo(ambiente);
+        }
 
-	/**
-	 * Retorna os tipos possiveis desta expressao.
-	 * 
-	 * @param amb
-	 *            o ambiente de compila��o.
-	 * @return os tipos possiveis desta expressao.
-	 * @exception VariavelNaoDeclaradaException
-	 *                se existir um identificador nao declarado no ambiente.
-	 * @exception VariavelNaoDeclaradaException
-	 *                se existir um identificador declarado mais de uma vez no
-	 *                mesmo bloco do ambiente.
-	 * @precondition this.checaTipo();
-	 */
-	public Tipo getTipo(AmbienteCompilacao ambiente)
-			throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
+        if (tipoFuncao == null || tipoFuncao instanceof TipoPolimorfico) {
+            ArrayList<Tipo> params = new ArrayList<>();
+            for (Expressao valorReal : argsExpressao) {
+                params.add(valorReal.getTipo(ambiente));
+            }
+            tipoFuncao = new TipoFuncao(params, new TipoPolimorfico());
+        }
+        return tipoFuncao;
+    }
 
-		Tipo tipo = getFuncType(ambiente);
+    public List<? extends Expressao> getArgsExpressao() {
+        return argsExpressao;
+    }
 
-		TipoFuncao tipoFuncao = (TipoFuncao) tipo;
+    public Expressao getFunc() {
+        return func;
+    }
 
-		return tipoFuncao.getTipo(ambiente, argsExpressao);
-	}
+    public Tipo getTipo(AmbienteCompilacao ambiente)
+            throws VariavelNaoDeclaradaException, VariavelJaDeclaradaException {
 
-	private void includeValueBindings(AmbienteExecucao ambiente,
-			Map<Id, Valor> mapIdValor) throws VariavelJaDeclaradaException {
-		for (Map.Entry<Id, Valor> mapeamento : mapIdValor.entrySet()) {
-			Id id = mapeamento.getKey();
-			Valor valor = mapeamento.getValue();
-			ambiente.map(id, valor);
-		}
-	}
+        Tipo tipo = getFuncType(ambiente);
 
-	private Map<Id, Valor> resolveParametersBindings(AmbienteExecucao ambiente,
-			DefFuncao funcao) throws VariavelNaoDeclaradaException,
-			VariavelJaDeclaradaException {
-		List<Id> parametrosId = funcao.getListaId();
-		List<? extends Expressao> expressoesValorReal = argsExpressao;
+        TipoFuncao tipoFuncao = (TipoFuncao) tipo;
 
-		Map<Id, Valor> mapIdValor = new HashMap<Id, Valor>();
+        return tipoFuncao.getTipo(ambiente, argsExpressao);
+    }
 
-		Iterator<? extends Expressao> iterExpressoesValor = expressoesValorReal
-				.iterator();
-		for (Id id : parametrosId) {
-			Expressao exp = iterExpressoesValor.next();
-			Valor valorReal = exp.avaliar(ambiente);
-			mapIdValor.put(id, valorReal);
-		}
+    private void includeValueBindings(AmbienteExecucao ambiente,
+            Map<Id, Valor> mapIdValor) throws VariavelJaDeclaradaException {
+        for (Map.Entry<Id, Valor> mapeamento : mapIdValor.entrySet()) {
+            Id id = mapeamento.getKey();
+            Valor valor = mapeamento.getValue();
+            ambiente.map(id, valor);
+        }
+    }
 
-		return mapIdValor;
-	}
+    /**
+     * Resolve os bindings dos parâmetros da função, expandindo argumentos do tipo ExpSplat.
+     */
+    private Map<Id, Valor> resolveParametersBindings(AmbienteExecucao ambiente,
+            DefFuncao funcao) throws VariavelNaoDeclaradaException,
+            VariavelJaDeclaradaException {
 
-	/**
-	 * Retorna uma representacao String desta expressao. Util para depuracao.
-	 * 
-	 * @return uma representacao String desta expressao.
-	 */
-	@Override
-	public String toString() {
-		return String.format("%s(%s)", func, listToString(argsExpressao, ","));
-	}
+        List<Id> parametrosId = funcao.getListaId();
+        List<Valor> valoresExpandidos = new ArrayList<>();
 
-	public Expressao reduzir(AmbienteExecucao ambiente) {
-		this.func = this.func.reduzir(ambiente);
-		
-		ArrayList<Expressao> novosArgs =
-			new ArrayList<Expressao>(this.argsExpressao.size());
-		
-		for(Expressao arg : this.argsExpressao) {
-			novosArgs.add(arg.reduzir(ambiente));
-		}
-		this.argsExpressao = novosArgs;
-		
-		return this;
-	}
-	
-	public Aplicacao clone() {
-		Aplicacao retorno;
-		ArrayList<Expressao> novaLista = new ArrayList<Expressao>(this.argsExpressao.size());
+        // Expande os argumentos, tratando ExpSplat
+        for (Expressao arg : argsExpressao) {
+            if (arg instanceof lf3.plp.functional3.expression.ExpSplat) {
+                Valor v = arg.avaliar(ambiente);
+                if (!(v instanceof ValorLista)) {
+                    throw new RuntimeException("O operador * (splat) só pode ser usado com listas.");
+                }
+                ValorLista listaValores = (ValorLista) v;
+                valoresExpandidos.addAll(listaValores.getValores());
+            } else {
+                valoresExpandidos.add(arg.avaliar(ambiente));
+            }
+        }
 
-		Iterator<? extends Expressao> iterator = argsExpressao.iterator();
-		while (iterator.hasNext()){
-			Expressao exp = iterator.next();
-			novaLista.add(exp.clone());			
-		}
-		
-		retorno = new Aplicacao(this.func.clone(), novaLista);
-		
-		return retorno;
-	}
+        if (valoresExpandidos.size() != parametrosId.size()) {
+            throw new RuntimeException(String.format(
+                    "Número de argumentos (%d) não corresponde ao número de parâmetros (%d) da função.",
+                    valoresExpandidos.size(), parametrosId.size()));
+        }
+
+        Map<Id, Valor> mapIdValor = new HashMap<>();
+
+        for (int i = 0; i < parametrosId.size(); i++) {
+            mapIdValor.put(parametrosId.get(i), valoresExpandidos.get(i));
+        }
+
+        return mapIdValor;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s(%s)", func, listToString(argsExpressao, ","));
+    }
+
+    public Expressao reduzir(AmbienteExecucao ambiente) {
+        this.func = this.func.reduzir(ambiente);
+
+        ArrayList<Expressao> novosArgs =
+                new ArrayList<>(this.argsExpressao.size());
+
+        for (Expressao arg : this.argsExpressao) {
+            novosArgs.add(arg.reduzir(ambiente));
+        }
+        this.argsExpressao = novosArgs;
+
+        return this;
+    }
+
+    public Aplicacao clone() {
+        Aplicacao retorno;
+        ArrayList<Expressao> novaLista = new ArrayList<>(this.argsExpressao.size());
+
+        Iterator<? extends Expressao> iterator = argsExpressao.iterator();
+        while (iterator.hasNext()) {
+            Expressao exp = iterator.next();
+            novaLista.add(exp.clone());
+        }
+
+        retorno = new Aplicacao(this.func.clone(), novaLista);
+
+        return retorno;
+    }
 }
