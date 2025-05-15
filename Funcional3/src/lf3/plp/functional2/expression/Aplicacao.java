@@ -20,6 +20,7 @@ import lf3.plp.expressions2.memory.VariavelNaoDeclaradaException;
 import lf3.plp.functional1.util.DefFuncao;
 import lf3.plp.functional1.util.TipoFuncao;
 import lf3.plp.functional1.util.TipoPolimorfico;
+import lf3.plp.functional3.expression.ExpSplat;
 import lf3.plp.functional3.expression.ValorLista;
 
 public class Aplicacao implements Expressao {

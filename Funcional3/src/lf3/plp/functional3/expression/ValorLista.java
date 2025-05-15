@@ -301,8 +301,17 @@ public class ValorLista extends ValorConcreto<List<Expressao>> {
 		return valor().equals(other.valor());
 	}
 
-    public Collection<? extends Valor> getValores() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getValores'");
+
+public Collection<? extends Valor> getValores() {
+    List<Valor> valores = new ArrayList<>();
+    for (Expressao exp : valor()) {
+        if (exp instanceof Valor) {
+            valores.add((Valor) exp);
+        } else {
+            throw new RuntimeException("ValorLista contém expressão não avaliada");
+        }
     }
+    return valores;
+}
+
 }

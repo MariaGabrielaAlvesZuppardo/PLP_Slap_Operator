@@ -14,6 +14,8 @@ import java.util.List;
 import lf3.plp.functional3.*;
 import lf3.plp.functional3.expression.*;
 import lf3.plp.functional3.declaration.DecComposta;
+import lf3.plp.functional3.expression.ExpSplat;
+
 //Imports da Funcional2
 import lf3.plp.functional2.declaration.DecFuncao;
 import lf3.plp.functional2.expression.ValorFuncao;
