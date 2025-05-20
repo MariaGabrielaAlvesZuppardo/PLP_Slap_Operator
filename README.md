@@ -83,18 +83,18 @@ ExpUnaria ::= ["-" Expressao](https://github.com/MariaGabrielaAlvesZuppardo/PLP_
 
 >	| [ExpCompreensaoLista](https://github.com/MariaGabrielaAlvesZuppardo/PLP_Slap_Operator/blob/fdf427892742c93d0591440dfb95bc12fc985353/Funcional3/src/lf3/plp/functional3/expression/ExpCompreensaoLista.java) <br />
 
-ExpBinaria ::= Expressao "+" Expressao
-> | Expressao "-" Expressao
-> | Expressao "*" Expressao
-> | Expressao ">" Expressao
-> | Expressao "<" Expressao
-> | Expressao "and" Expressao
-> | Expressao "or" Expressao
-> | Expressao "==" Expressao
-> | Expressao "++" Expressao
-> | Expressao ".." Expressao
-> | Expressao ":" Expressao
-> | Expressao "^^" Expressao
+ExpBinaria ::= Expressao "+" Expressao <br />
+> | Expressao "-" Expressao <br />
+> | Expressao "*" Expressao <br />
+> | Expressao ">" Expressao <br />
+> | Expressao "<" Expressao <br />
+> | Expressao "and" Expressao <br />
+> | Expressao "or" Expressao <br />
+> | Expressao "==" Expressao <br />
+> | Expressao "++" Expressao <br />
+> | Expressao ".." Expressao <br />
+> | Expressao ":" Expressao <br />
+> | Expressao "^^" Expressao <br />
 
 ExpDeclaracao ::= "let" [DeclaracaoFuncional](https://github.com/MariaGabrielaAlvesZuppardo/PLP_Slap_Operator/blob/fdf427892742c93d0591440dfb95bc12fc985353/Funcional3/src/lf3/plp/functional1/declaration/DeclaracaoFuncional.java) "in" Expressao
 
@@ -111,20 +111,30 @@ DecFuncao ::= "fun" ListId "=" Expressao
 
 DecComposta ::= DeclaracaoFuncional "," DeclaracaoFuncional
 
-ListId ::= Id  |  Id, ListId
+ListId ::= Id
+         | Id "," ListId
+	       | "`*`" ValorLista
+         | "`*`" ValorLista "," ListId
 
 Aplicacao:= Expressao"(" ListExp ")"
 
-ListExp ::= Expressao  |  Expressao, ListExp
+ListExp ::= Expressao
+          | Expressao "," ListExp
+	        | "`*`" ValorLista
+          | "`*`" ValorLista "," ListExp 
 
 Esta BNF ilustra apenas a estrutura básica do que será possível utilizar na linguagem.
 
 ## Extensões realizadas em LF3
-1. 
+1. Criação da Classe ExpSplat que implementa Extensao
+2. Criação do Método getValores() na Classe ValorLista
+3. Criação do Método getTipoElemento() na Classe TipoLista
+4. Alteração no método resolveParametersBindings()
+5. Alterações na gramática (arquivo .jj)
 
 ## Slides da apresentação
 
-Disponível [aqui]()
+Disponível [aqui](https://drive.google.com/file/d/1_cgwhOMNQKSLSjQ-1ygNTPzs_LP9O7SK/view?usp=drive_link)
 
 # Paradigmas de Linguagens de Programação
 
