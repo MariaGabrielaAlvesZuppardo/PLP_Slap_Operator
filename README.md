@@ -38,108 +38,97 @@ Não achamos outra linguagem de programação que possui esse tipo de operador, 
 
 ## 💻 BNF do Projeto: 
 
-```
-Programa ::= Expressao
 
-Expressao ::= Valor
-            | ExpUnaria
-            | ExpBinaria
-            | ExpDeclaracao
-            | Id
-            | Aplicacao
-            | IfThenElse
+[Programa](https://github.com/MariaGabrielaAlvesZuppardo/PLP_Slap_Operator/blob/fdf427892742c93d0591440dfb95bc12fc985353/Funcional3/src/lf3/plp/functional3/Programa.java) ::= [Expressao](https://github.com/MariaGabrielaAlvesZuppardo/PLP_Slap_Operator/blob/master/Funcional3/src/lf3/plp/expressions2/expression/Expressao.java)
 
-Valor ::= ValorConcreto | ValorAbstrato
-ValorAbstrato ::= ValorFuncao
-ValorConcreto ::= ValorInteiro | ValorBooleano | ValorString | ValorLista
+Expressao ::= [Valor](https://github.com/MariaGabrielaAlvesZuppardo/PLP_Slap_Operator/blob/fdf427892742c93d0591440dfb95bc12fc985353/Funcional3/src/lf3/plp/expressions2/expression/Valor.java) <br />
+
+>	| [ExpUnaria](https://github.com/MariaGabrielaAlvesZuppardo/PLP_Slap_Operator/blob/fdf427892742c93d0591440dfb95bc12fc985353/Funcional3/src/lf3/plp/expressions2/expression/ExpUnaria.java) <br />
+
+>	| [ExpBinaria](https://github.com/MariaGabrielaAlvesZuppardo/PLP_Slap_Operator/blob/fdf427892742c93d0591440dfb95bc12fc985353/Funcional3/src/lf3/plp/expressions2/expression/ExpBinaria.java) <br />
+
+>	| [ExpDeclaracao](https://github.com/MariaGabrielaAlvesZuppardo/PLP_Slap_Operator/blob/fdf427892742c93d0591440dfb95bc12fc985353/Funcional3/src/lf3/plp/functional2/expression/ExpDeclaracao.java) <br />
+
+>	| [Id](https://github.com/MariaGabrielaAlvesZuppardo/PLP_Slap_Operator/blob/fdf427892742c93d0591440dfb95bc12fc985353/Funcional3/src/lf3/plp/expressions2/expression/Id.java) <br />
+
+>	| [Aplicacao](https://github.com/MariaGabrielaAlvesZuppardo/PLP_Slap_Operator/blob/fdf427892742c93d0591440dfb95bc12fc985353/Funcional3/src/lf3/plp/functional2/expression/Aplicacao.java) <br />
+
+>	| [IfThenElse](https://github.com/MariaGabrielaAlvesZuppardo/PLP_Slap_Operator/blob/fdf427892742c93d0591440dfb95bc12fc985353/Funcional3/src/lf3/plp/functional1/expression/IfThenElse.java) <br />
+
+Valor ::= [ValorConcreto](https://github.com/MariaGabrielaAlvesZuppardo/PLP_Slap_Operator/blob/fdf427892742c93d0591440dfb95bc12fc985353/Funcional3/src/lf3/plp/expressions2/expression/ValorConcreto.java) 
+| [ValorAbstrato](https://github.com/MariaGabrielaAlvesZuppardo/PLP_Slap_Operator/blob/fdf427892742c93d0591440dfb95bc12fc985353/Funcional3/src/lf3/plp/functional2/expression/ValorAbstrato.java)
+
+ValorAbstrato ::= [ValorFuncao](https://github.com/MariaGabrielaAlvesZuppardo/PLP_Slap_Operator/blob/fdf427892742c93d0591440dfb95bc12fc985353/Funcional3/src/lf3/plp/functional2/expression/ValorFuncao.java) 
+
+
+ValorConcreto ::= [ValorInteiro](https://github.com/MariaGabrielaAlvesZuppardo/PLP_Slap_Operator/blob/fdf427892742c93d0591440dfb95bc12fc985353/Funcional3/src/lf3/plp/expressions2/expression/ValorInteiro.java) 
+
+>| [ValorBooleano](https://github.com/MariaGabrielaAlvesZuppardo/PLP_Slap_Operator/blob/fdf427892742c93d0591440dfb95bc12fc985353/Funcional3/src/lf3/plp/expressions2/expression/ValorBooleano.java) 
+
+>| [ValorString](https://github.com/MariaGabrielaAlvesZuppardo/PLP_Slap_Operator/blob/fdf427892742c93d0591440dfb95bc12fc985353/Funcional3/src/lf3/plp/expressions2/expression/ValorString.java) 
+
+>| [ValorLista](https://github.com/MariaGabrielaAlvesZuppardo/PLP_Slap_Operator/blob/fdf427892742c93d0591440dfb95bc12fc985353/Funcional3/src/lf3/plp/functional3/expression/ValorLista.java) <br />
+
 ValorFuncao ::= "fn" Id Id "." Expressao
 
-ExpUnaria ::= "-" Expressao 
-            | "not" Expressao 
-            | "length" Expressao
-            | head(Expressao) 
-            | tail(Expressao)
-            | ExpCompreensaoLista
+ExpUnaria ::= ["-" Expressao](https://github.com/MariaGabrielaAlvesZuppardo/PLP_Slap_Operator/blob/fdf427892742c93d0591440dfb95bc12fc985353/Funcional3/src/lf3/plp/expressions2/expression/ExpMenos.java) <br />
 
-ExpCompreensaoLista ::= Expressao Gerador | Expressao Gerador Filtro
+>	| ["not" Expressao](https://github.com/MariaGabrielaAlvesZuppardo/PLP_Slap_Operator/blob/fdf427892742c93d0591440dfb95bc12fc985353/Funcional3/src/lf3/plp/expressions2/expression/ExpNot.java) <br />
 
-Gerador ::= "for" Id "in" Expressao 
-          | "for" Id "in" Expressao ["," Gerador]
+>	| ["length" Expressao](https://github.com/MariaGabrielaAlvesZuppardo/PLP_Slap_Operator/blob/fdf427892742c93d0591440dfb95bc12fc985353/Funcional3/src/lf3/plp/expressions2/expression/ExpLength.java) <br />
 
-Filtro ::= "if" Expressao
+>	| [head(Expressao)](https://github.com/MariaGabrielaAlvesZuppardo/PLP_Slap_Operator/blob/fdf427892742c93d0591440dfb95bc12fc985353/Funcional3/src/lf3/plp/functional3/expression/ExpHead.java) <br />
 
-ExpBinaria ::= Expressao "+" Expressao 
-             | Expressao "-" Expressao 
-             | Expressao "*" Expressao 
-             | Expressao ">" Expressao 
-             | Expressao "<" Expressao 
-             | Expressao "and" Expressao 
-             | Expressao "or" Expressao 
-             | Expressao "==" Expressao 
-             | Expressao "++" Expressao 
-             | Expressao ".." Expressao 
-             | Expressao ":" Expressao 
-             | Expressao "^^" Expressao
+>	| [tail(Expressao)](https://github.com/MariaGabrielaAlvesZuppardo/PLP_Slap_Operator/blob/fdf427892742c93d0591440dfb95bc12fc985353/Funcional3/src/lf3/plp/functional3/expression/ExpTail.java) <br />
 
-ExpDeclaracao ::= "let" DeclaracaoFuncional "in" Expressao
+>	| [ExpCompreensaoLista](https://github.com/MariaGabrielaAlvesZuppardo/PLP_Slap_Operator/blob/fdf427892742c93d0591440dfb95bc12fc985353/Funcional3/src/lf3/plp/functional3/expression/ExpCompreensaoLista.java) <br />
 
-DeclaracaoFuncional ::= DecVariavel 
-                      | DecFuncao 
-                      | DecComposta
+ExpBinaria ::= Expressao "+" Expressao
+> | Expressao "-" Expressao
+> | Expressao "*" Expressao
+> | Expressao ">" Expressao
+> | Expressao "<" Expressao
+> | Expressao "and" Expressao
+> | Expressao "or" Expressao
+> | Expressao "==" Expressao
+> | Expressao "++" Expressao
+> | Expressao ".." Expressao
+> | Expressao ":" Expressao
+> | Expressao "^^" Expressao
+
+ExpDeclaracao ::= "let" [DeclaracaoFuncional](https://github.com/MariaGabrielaAlvesZuppardo/PLP_Slap_Operator/blob/fdf427892742c93d0591440dfb95bc12fc985353/Funcional3/src/lf3/plp/functional1/declaration/DeclaracaoFuncional.java) "in" Expressao
+
+
+DeclaracaoFuncional ::= [DecVariavel](https://github.com/MariaGabrielaAlvesZuppardo/PLP_Slap_Operator/blob/fdf427892742c93d0591440dfb95bc12fc985353/Funcional3/src/lf3/plp/functional1/declaration/DecVariavel.java) <br />
+
+>	| [DecFuncao](https://github.com/MariaGabrielaAlvesZuppardo/PLP_Slap_Operator/blob/fdf427892742c93d0591440dfb95bc12fc985353/Funcional3/src/lf3/plp/functional2/declaration/DecFuncao.java) <br />
+
+>	| [DecComposta](https://github.com/MariaGabrielaAlvesZuppardo/PLP_Slap_Operator/blob/fdf427892742c93d0591440dfb95bc12fc985353/Funcional3/src/lf3/plp/functional3/declaration/DecComposta.java)
+
 DecVariavel ::= "var" Id "=" Expressao
+
 DecFuncao ::= "fun" ListId "=" Expressao
+
 DecComposta ::= DeclaracaoFuncional "," DeclaracaoFuncional
-ListId ::= Id | Id, ListId
 
-Aplicacao ::= Expressao "(" ListExp ")" | Expressao "(" "*" ListExp ")"
+ListId ::= Id  |  Id, ListId
 
-ListExp ::= Expressao 
-          | Expressao "," ListExp
-          | Splat                              
-          | Splat "," ListExp                  
-          | Expressao "," Splat                
-```
+Aplicacao:= Expressao"(" ListExp ")"
+
+ListExp ::= Expressao  |  Expressao, ListExp
+
 Esta BNF ilustra apenas a estrutura básica do que será possível utilizar na linguagem.
+
+## Extensões realizadas em LF3
+1. 
+
+## Slides da apresentação
+
+Disponível [aqui]()
 
 # Paradigmas de Linguagens de Programação
 
 Repositório do projeto da disciplina Paradigmas de Linguagens de Programação ([in1007](https://www.cin.ufpe.br/~in1007/)) da pós-graduação em Ciência da Computação da UFPE, ministrada pelo Prof.Dr. Augusto Sampaio.
-
-## Execução
-
-* Local
-
-```bash
-cd <Linguagem>
-mvn clean generate-sources compile exec:java
-```
-
-* Applet
-
-```bash
-mvn package
-# Jar será gerado em ./Applet/target/
-```
-
-## Contribuições
-
-* Unificar os projetos das linguagens e Applet no mesmo repositório - ([commit](https://github.com/AugustoSampaio/PLP/commit/5facfa1b4017536cd25730bcece9fbd94a49aa48/))
-* Refactoring para adicionar o ambiente na LE1 - ([commit](https://github.com/AugustoSampaio/PLP/commit/244d8d01e036bcbec0acccf337e09c19d6ec434c/))
-* Correção de problemas relativos à quantidade de argumentos em funções nas LFs - ([commit](https://github.com/AugustoSampaio/PLP/commit/14664755276b35d0aca704f7c1da8af09ea38081/))
-* Separar ContextoExecucaoFuncional entre ContextoExecucao[Valor] e ContextoFuncional[DefFuncao], na LF1 - ([commit](https://github.com/AugustoSampaio/PLP/commit/a11a34df27dcdfa444c7a25f962c67f9d1480635/))
-* Geração/atualização automática do Applet através do Maven - ([commit](https://github.com/AugustoSampaio/PLP/commit/bfdf84077162698587bcbcb24cc2b9d7c987b6bc/),
-[commit](https://github.com/AugustoSampaio/PLP/commit/5facfa1b4017536cd25730bcece9fbd94a49aa48/))
-* Refactoring na LE2 e LFs: aplicar o padrão composite na avaliação de Declarações - ([refactors](https://github.com/AugustoSampaio/PLP/commit/bab29438f5ddafa5662073ea08e166c1e04e49b9/),  [LF3](https://github.com/AugustoSampaio/PLP/commit/c60d5f92e792b89105b242163f5bd0f1409f72b4/),  [LF2](https://github.com/AugustoSampaio/PLP/commit/5481b2b8fd1ea1ff0659070a5608e1521d120193/))
-* Correção da Linguagem Funcional 3 - ([commit](https://github.com/AugustoSampaio/PLP/commit/b523ebee335348ed12f03a4eecfd3234b703071d/))
-* Mudança para utilizar ambiente auxiliar no elabora ao invés de map auxiliar - ([commit](https://github.com/AugustoSampaio/PLP/commit/43d900d6be77288786ad895c99f4bbc163e04244/))
-* Atualizar a página da disciplina com as novas modificações
-* Adicionar javacc sources para debug ([commit](https://github.com/fmca/PLP/commit/9606652f1f48717e75bc1a480c8ad8bff1bf5c3c))
-* Corrigir problemas da LF3 ao executar quicksort ([commit](https://github.com/fmca/PLP/commit/31ea41c48fb3a7df3ac9e8ea4fbb980e08a66c78))
-* Atualizar geração do applet ([commit](https://github.com/fmca/PLP/commit/9a9927f73eb57911ffbf46e3d60a0998e3842601))
-
-## Observações
-
-* O código disponível do github não tem ligação com o conteúdo da página da disciplina. Assim qualquer contribuição feita no repositório, não irá refletir no conteúdo da página, sendo necessário copiar os resultados para a página após o fim do período. A importância de estar dessa forma é porque assim, caso ocorra problema de conexão (ex.: o cin esteja sem internet), ainda será possível ter acesso ao conteúdo.
 
 ## Créditos
 
